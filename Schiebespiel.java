@@ -1,17 +1,3 @@
-package def;
-
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Random;
-import java.util.Scanner;
-
-import java.io.*;
-
 import java.io.*;
 import java.util.*;
 
@@ -23,27 +9,22 @@ public class Schiebespiel {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int replay;
         int choice;
 
-        System.out.println("1 - New Game\n2 - Resume");
-        choice = sc.nextInt();
+        while (true) {
+            System.out.println("1 - New Game\n2 - Resume\n3 - Exit");
+            choice = sc.nextInt();
 
-        if (choice == 1) {
-            Game();
-            System.out.print("Replay (1 = yes/ 2 = no): ");
-            replay = sc.nextInt();
-
-            while (replay == 1) {
+            if (choice == 1) {
                 Game();
-                System.out.print("Replay (1 = yes/ 2 = no): ");
-                replay = sc.nextInt();
+            } else if (choice == 2) {
+                ResumeSavedGame();
+            } else if (choice == 3) {
+                System.out.println("END!");
+                break;
+            } else {
+                System.out.println("Invalid Input! End!");
             }
-            System.out.println("END!");
-        } else if (choice == 2) {
-            ResumeSavedGame();
-        } else {
-            System.out.println("Invalid Input! End!");
         }
     }
 
@@ -138,6 +119,19 @@ public class Schiebespiel {
                 System.out.println("Spiel gespeichert. Beenden.");
                 break;
             }
+        }
+
+        // Reset the board and move count for a new game
+        board = null;
+        moveCount = 0;
+
+        // Ask if the player wants to play again
+        System.out.print("Replay (1 = yes/ 2 = no): ");
+        int replay = sc.nextInt();
+        if (replay == 1) {
+            Game();
+        } else {
+            System.out.println("END!");
         }
     }
 
